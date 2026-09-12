@@ -153,13 +153,13 @@ export default function ActualInterviewRoomPage() {
     transcriptEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [transcripts, candidateAnswerText]);
 
-  // Auto-submit candidate answer after 2.5 seconds of silence
+  // Auto-submit candidate answer after 5.0 seconds of silence (relying more on manual submit)
   useEffect(() => {
     let timeout: NodeJS.Timeout;
     if (isListening && !isAiSpeaking && candidateAnswerText.trim().length > 2) {
       timeout = setTimeout(() => {
         handleSubmitAnswer();
-      }, 2500);
+      }, 5000);
     }
     return () => clearTimeout(timeout);
   }, [candidateAnswerText, isListening, isAiSpeaking]);
@@ -225,8 +225,8 @@ export default function ActualInterviewRoomPage() {
           await stream.streamMessageChunk(text, true);
         }
 
-        // Estimate speech duration (approx 15 chars per sec + 1s buffer)
-        const estimatedMs = Math.max(2000, (text.length / 15) * 1000 + 1000);
+        // Estimate speech duration (approx 18 chars per sec + 1s buffer)
+        const estimatedMs = Math.max(2000, (text.length / 18) * 1000 + 1000);
         setTimeout(() => {
           setIsAiSpeaking(false);
           startListeningToCandidate();
@@ -289,7 +289,9 @@ export default function ActualInterviewRoomPage() {
 
           // Semantic Interruption / Barge-in trigger: if candidate speaks while AI is speaking
           const latestWord = event.results[event.resultIndex][0].transcript;
-          if (isAiSpeaking && latestWord.trim().length > 2) {
+          // Require at least 15 chars or 3 words to avoid false positive interruptions from background noise
+          const isSignificantSpeech = latestWord.trim().length > 15 || latestWord.trim().split(' ').length > 2;
+          if (isAiSpeaking && isSignificantSpeech) {
             handleBargeInInterruption();
           }
 
@@ -527,7 +529,7 @@ export default function ActualInterviewRoomPage() {
                  <div className="flex items-center justify-center w-12 h-12 bg-blue-100/50 rounded-full animate-pulse border border-blue-200 shadow-inner">
                     <Mic className="w-5 h-5 text-blue-600" />
                  </div>
-                 <div className="text-center w-full px-4">
+                 <div className="text-center w-full px-4 mb-2">
                    <span className="text-[11px] font-bold text-blue-600 uppercase tracking-wider block mb-1">
                      Listening to you...
                    </span>
@@ -535,6 +537,15 @@ export default function ActualInterviewRoomPage() {
                       {candidateAnswerText || "Speak naturally..."}
                    </p>
                  </div>
+                 
+                 <button
+                   onClick={handleSubmitAnswer}
+                   disabled={!candidateAnswerText.trim() || candidateAnswerText.trim().length < 3}
+                   className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                 >
+                   <Send className="w-3.5 h-3.5" />
+                   Finish & Submit Answer
+                 </button>
                </div>
             ) : (
                <div className="flex flex-col items-center gap-2 py-2 opacity-50">

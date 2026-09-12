@@ -43,6 +43,11 @@ EcoSphere is a production-style, full-stack AI mock interview and candidate eval
     - Question-by-question review with candidate answers, evaluator observations, and score impact.
     - Professional downloadable PDF report and "Go to Dashboard" button which updates dashboard analytics.
 
+### UX & Latency Optimizations
+- **Manual Submit Option**: Candidates can now explicitly submit their answers using a "Finish & Submit Answer" button to completely eliminate artificial timeout latency.
+- **Smart Interruption (Barge-in) Tuning**: The semantic voice activity detection has been tuned to require significant speech (15+ chars or 3+ words) to interrupt the AI, eliminating false positives from background noise.
+- **Dynamic TTS Duration Fallbacks**: The estimated AI speaking duration fallback has been optimized to unlock the candidate microphone faster.
+
 ### C. Complete Organization Journey
 1. **Organization Auth (`/organization/auth`)**: Organization OTP email sign-in.
 2. **Organization Dashboard (`/organization/dashboard`)**: Ranked candidate leaderboard sorted by Overall Score (highest to lowest), with multi-column sorting (Technical, Behavioural, PM, Hiring Manager, Date) and role/domain filters.

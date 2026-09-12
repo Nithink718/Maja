@@ -257,6 +257,13 @@ Return ONLY a valid JSON object:
                 logger.error(f"Failed to parse Gemini question response: {e}")
 
         # Intelligent Fallback Questions tailored by role & question sequence
+        ack = ""
+        if previous_qa and len(previous_qa) > 0:
+            last_answer = previous_qa[-1].get("answer", "")
+            if len(last_answer) > 10:
+                snippet = (last_answer[:40] + '...') if len(last_answer) > 40 else last_answer
+                ack = f"Thank you for sharing that, especially regarding '{snippet}'. "
+
         if question_order == 1:
             return {
                 "question": f"Welcome to your mock interview for the {role} role at {company}! To start off, could you briefly introduce yourself and walk me through your background in {domain}?",
@@ -268,7 +275,7 @@ Return ONLY a valid JSON object:
         elif question_order == 2:
             proj_name = github_analysis.get("project_name", "your featured project")
             return {
-                "question": f"Looking at your profile and portfolio project '{proj_name}', could you explain the system architecture you designed, what technical challenges you overcame, and why you selected your particular technology stack?",
+                "question": ack + f"Looking at your profile and portfolio project '{proj_name}', could you explain the system architecture you designed, what technical challenges you overcame, and why you selected your particular technology stack?",
                 "category": "technical",
                 "difficulty": "Medium",
                 "rationale": "Verifies hands-on project depth, architecture justification, and problem solving.",
@@ -276,7 +283,7 @@ Return ONLY a valid JSON object:
             }
         elif question_order == 3:
             return {
-                "question": f"In a high-scale production system at {company}, suppose you encounter sudden API latency spikes under heavy concurrent traffic. How would you systematically diagnose the bottleneck across caching, database queries, and network layers?",
+                "question": ack + f"In a high-scale production system at {company}, suppose you encounter sudden API latency spikes under heavy concurrent traffic. How would you systematically diagnose the bottleneck across caching, database queries, and network layers?",
                 "category": "technical",
                 "difficulty": "Hard",
                 "rationale": "Evaluates systematic debugging, distributed systems knowledge, and scalability.",
@@ -284,7 +291,7 @@ Return ONLY a valid JSON object:
             }
         elif question_order == 4:
             return {
-                "question": "Tell me about a time when you strongly disagreed with a teammate or engineering lead on a critical technical decision. How did you handle the situation, and what was the outcome?",
+                "question": ack + "Tell me about a time when you strongly disagreed with a teammate or engineering lead on a critical technical decision. How did you handle the situation, and what was the outcome?",
                 "category": "behavioural",
                 "difficulty": "Medium",
                 "rationale": "Evaluates teamwork, conflict resolution, ownership, and mature communication.",
@@ -292,7 +299,7 @@ Return ONLY a valid JSON object:
             }
         else:
             return {
-                "question": f"When balancing rapid feature delivery against long-term engineering health and code quality, how do you prioritize tasks and communicate technical debt to non-technical stakeholders at {company}?",
+                "question": ack + f"When balancing rapid feature delivery against long-term engineering health and code quality, how do you prioritize tasks and communicate technical debt to non-technical stakeholders at {company}?",
                 "category": "hiring_manager",
                 "difficulty": "Medium",
                 "rationale": "Assesses prioritization, business awareness, and stakeholder management.",
