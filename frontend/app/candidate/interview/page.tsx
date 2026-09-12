@@ -57,6 +57,7 @@ export default function ActualInterviewRoomPage() {
   const anamVideoRef = useRef<HTMLVideoElement>(null);
   const anamClientRef = useRef<any>(null);
   const candidateVideoRef = useRef<HTMLVideoElement>(null);
+  const hasInitialized = useRef(false);
 
   const initCandidateVideo = async () => {
     try {
@@ -92,8 +93,6 @@ export default function ActualInterviewRoomPage() {
       );
       anamClientRef.current = client;
 
-      await client.connect();
-
       if (anamVideoRef.current) {
         await client.streamToVideoElement('anam-video');
       }
@@ -104,7 +103,8 @@ export default function ActualInterviewRoomPage() {
 
   // Initialize Interview Room
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== 'undefined' && !hasInitialized.current) {
+      hasInitialized.current = true;
       const storedId = localStorage.getItem('ecosphere_current_interview_id');
       const cid = localStorage.getItem('ecosphere_candidate_id');
       const comp = localStorage.getItem('ecosphere_company') || 'Google';
