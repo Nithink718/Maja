@@ -56,6 +56,27 @@ export default function ActualInterviewRoomPage() {
   // Anam Refs
   const anamVideoRef = useRef<HTMLVideoElement>(null);
   const anamClientRef = useRef<any>(null);
+  const candidateVideoRef = useRef<HTMLVideoElement>(null);
+
+  const initCandidateVideo = async () => {
+    try {
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+        if (candidateVideoRef.current) {
+          candidateVideoRef.current.srcObject = stream;
+        }
+      }
+    } catch (err) {
+      console.warn('Candidate video not available:', err);
+    }
+  };
+
+  const stopCandidateVideo = () => {
+    if (candidateVideoRef.current && candidateVideoRef.current.srcObject) {
+      const stream = candidateVideoRef.current.srcObject as MediaStream;
+      stream.getTracks().forEach(track => track.stop());
+    }
+  };
 
   const initAnamClient = async () => {
     try {
@@ -100,12 +121,14 @@ export default function ActualInterviewRoomPage() {
       setDomain(d);
 
       initAnamClient();
+      initCandidateVideo();
       initInterviewSession(storedId);
       initBrowserSpeechRecognition();
     }
 
     return () => {
       stopAllAudioAndSpeech();
+      stopCandidateVideo();
       if (anamClientRef.current) {
         anamClientRef.current.stopStreaming();
       }
@@ -450,7 +473,7 @@ export default function ActualInterviewRoomPage() {
             </div>
 
             {/* AI Avatar Talking Agent Visual */}
-            <div className="my-auto py-4">
+            <div className="relative my-auto py-4 h-80 sm:h-96">
               <AiAvatarVideo
                 isSpeaking={isAiSpeaking}
                 videoRef={anamVideoRef}
@@ -461,8 +484,18 @@ export default function ActualInterviewRoomPage() {
                     ? 'AI Interviewer speaking question (You can interrupt anytime)'
                     : 'Listening to candidate response...'
                 }
-                className="w-full h-80 sm:h-96"
+                className="w-full h-full"
               />
+              {/* Candidate PIP Video */}
+              <div className="absolute bottom-6 right-2 w-28 h-36 sm:w-36 sm:h-48 rounded-2xl overflow-hidden border-2 border-slate-700/50 shadow-2xl bg-slate-900 z-20">
+                <video
+                  ref={candidateVideoRef}
+                  autoPlay
+                  playsInline
+                  muted
+                  className="w-full h-full object-cover transform -scale-x-100"
+                />
+              </div>
             </div>
 
             {/* Active Question Highlight Banner */}
