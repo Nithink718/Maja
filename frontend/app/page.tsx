@@ -2,261 +2,311 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { UserCheck, Building2, Sparkles, ArrowRight, ShieldCheck, Cpu, Mic, FileBarChart, CheckCircle2 } from 'lucide-react';
-import AiAvatarVideo from '@/components/AiAvatarVideo';
+import { ArrowRight, ShieldCheck, Zap, Mic, Headphones, BarChart2 } from 'lucide-react';
 
 export default function LandingPage() {
   return (
-    <div className="flex-1 flex flex-col justify-center">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden py-12 md:py-20">
-        {/* Subtle Background Glow */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-blue-100/60 blur-[100px] -z-10 rounded-full pointer-events-none"></div>
+    <div className="min-h-screen bg-white font-sans text-slate-900 flex flex-col">
+      {/* Top Header */}
+      <header className="flex items-center justify-between px-6 py-4 border-b border-slate-200">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 bg-[#5b36e5] rounded-xl flex items-center justify-center text-white">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-5 h-5" strokeWidth="2.5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m-4-12v8m8-8v8M4 10v4m16-4v4" />
+            </svg>
+          </div>
+          <span className="text-xl font-bold tracking-tight">EchoSphere</span>
+        </div>
+        <div className="flex items-center gap-6">
+          <div className="flex items-center gap-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+            <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+            AI ONLINE
+          </div>
+          <Link href="/dashboard" className="text-sm font-semibold hover:text-[#5b36e5] transition-colors">
+            Dashboard
+          </Link>
+          <div className="w-10 h-10 border border-slate-200 rounded-lg flex items-center justify-center font-bold text-sm bg-white shadow-sm">
+            AS
+          </div>
+        </div>
+      </header>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            
-            {/* Left Content Column */}
-            <div className="lg:col-span-7 flex flex-col space-y-6 text-left">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-semibold w-fit shadow-xs">
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>Next-Generation AI Interview Intelligence</span>
+      {/* Main Hero Section */}
+      <main className="flex-1 flex flex-col lg:flex-row">
+        {/* Left Column */}
+        <div className="flex-1 px-8 py-16 lg:px-16 lg:py-24 flex flex-col justify-center">
+          <div className="flex items-center gap-4 mb-8">
+            <div className="h-px w-8 bg-slate-300"></div>
+            <span className="text-[#5b36e5] text-xs font-bold tracking-[0.2em] uppercase">
+              Adaptive Intelligence, In Conversation
+            </span>
+          </div>
+
+          <h1 className="text-6xl lg:text-[5.5rem] leading-[1.05] font-extrabold tracking-tight mb-8">
+            Every answer<br />
+            <span className="text-[#5b36e5]">shapes the</span><br />
+            next<br />
+            question.
+          </h1>
+
+          <p className="text-lg text-slate-500 max-w-xl mb-12 leading-relaxed">
+            Voice-first interviews led by a coordinated AI panel. Adaptive questioning, real-time context, and evidence-backed feedback—built around how you think.
+          </p>
+
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 mb-16">
+            <Link 
+              href="/candidate/auth"
+              className="group flex items-center justify-between gap-4 px-8 py-4 bg-[#5b36e5] text-white font-bold text-lg rounded-none shadow-[6px_6px_0px_0px_rgba(15,23,42,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[4px_4px_0px_0px_rgba(15,23,42,1)] active:translate-x-[6px] active:translate-y-[6px] active:shadow-none transition-all border-2 border-slate-900 w-full sm:w-auto"
+            >
+              <span>Are you a Candidate?</span>
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </Link>
+
+            <Link 
+              href="/organization/auth"
+              className="group flex items-center justify-between gap-4 px-8 py-4 bg-white text-slate-900 font-bold text-lg rounded-none border-2 border-slate-200 hover:border-slate-900 transition-colors w-full sm:w-auto"
+            >
+              <span>Are you an Organization?</span>
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform -rotate-45" />
+            </Link>
+          </div>
+
+          <div className="flex items-center gap-8 text-sm font-semibold text-slate-500">
+            <div className="flex items-center gap-2">
+              <ShieldCheck className="w-5 h-5 text-[#5b36e5]" />
+              <span>Encrypted voice & identity</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Zap className="w-5 h-5 text-[#5b36e5]" />
+              <span>Adaptive in real time</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column */}
+        <div className="flex-1 bg-[#5b36e5] relative overflow-hidden flex flex-col justify-center p-8 lg:p-16">
+          {/* Subtle concentric circles background */}
+          <div className="absolute top-0 right-0 w-[800px] h-[800px] border-[0.5px] border-white/10 rounded-full translate-x-1/3 -translate-y-1/3 pointer-events-none"></div>
+          <div className="absolute top-0 right-0 w-[600px] h-[600px] border-[0.5px] border-white/10 rounded-full translate-x-1/3 -translate-y-1/3 pointer-events-none"></div>
+          <div className="absolute top-0 right-0 w-[400px] h-[400px] border-[0.5px] border-white/10 rounded-full translate-x-1/3 -translate-y-1/3 pointer-events-none"></div>
+
+          <div className="relative z-10 w-full max-w-2xl mx-auto">
+            <div className="flex items-center justify-between text-white/70 text-xs font-bold tracking-widest uppercase mb-8">
+              <span>Live Adaptive Panel</span>
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-yellow-400 animate-pulse"></span>
+                <span>Listening</span>
+              </div>
+            </div>
+
+            {/* AI Panel Card */}
+            <div className="bg-[#1a1a24] text-white border-2 border-[#1a1a24] shadow-[12px_12px_0px_0px_rgba(250,204,21,1)] p-8 relative">
+              
+              <div className="flex items-start gap-6 mb-12">
+                <div className="w-16 h-16 rounded-full bg-[#5b36e5] flex items-center justify-center shrink-0 shadow-lg shadow-[#5b36e5]/40 border-4 border-[#1a1a24]">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-6 h-6 text-white" strokeWidth="2.5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-4-8v4m8-4v4" />
+                  </svg>
+                </div>
+                <div>
+                  <div className="text-xs font-bold tracking-wider text-slate-400 uppercase mb-2">
+                    Alex • Technical Interviewer
+                  </div>
+                  <div className="text-2xl font-bold tracking-tight">
+                    &ldquo;Let&apos;s follow that decision.&rdquo;
+                  </div>
+                </div>
               </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.15]">
-                AI-powered interview intelligence for <span className="text-blue-600">candidates</span> & <span className="text-blue-600">organizations</span>.
-              </h1>
+              <div className="mb-12">
+                <div className="text-xs font-bold tracking-wider text-yellow-400 uppercase mb-4">
+                  System Design • Follow-up
+                </div>
+                <h3 className="text-4xl font-medium leading-tight">
+                  How would your architecture change if traffic grew tenfold overnight?
+                </h3>
+              </div>
 
-              <p className="text-lg sm:text-xl text-slate-600 max-w-2xl leading-relaxed">
-                Experience real-time AI mock interviews with natural voice interaction, live semantic barge-in, and granular evidence-backed scoring across Technical, Behavioural, PM, and Hiring Manager dimensions.
+              {/* Panelists Bottom Row */}
+              <div className="flex flex-wrap items-stretch gap-4">
+                {/* Active Panelist */}
+                <div className="bg-yellow-400 text-slate-900 p-4 border-2 border-yellow-400 flex flex-col gap-2 min-w-[120px]">
+                  <div className="w-8 h-8 border-2 border-slate-900 flex items-center justify-center font-bold text-sm">
+                    A
+                  </div>
+                  <div>
+                    <div className="font-bold text-sm">Alex</div>
+                    <div className="text-[10px] uppercase font-bold opacity-80 leading-tight">Technical<br/>Interviewer</div>
+                  </div>
+                </div>
+                
+                {/* Inactive Panelist */}
+                <div className="border border-slate-700 text-white p-4 flex flex-col gap-2 min-w-[120px] opacity-75">
+                  <div className="w-8 h-8 border border-white flex items-center justify-center font-bold text-sm">
+                    M
+                  </div>
+                  <div>
+                    <div className="font-bold text-sm">Maya</div>
+                    <div className="text-[10px] uppercase font-bold opacity-60 leading-tight text-slate-400">Product<br/>Manager</div>
+                  </div>
+                </div>
+
+                <div className="border border-slate-700 text-white p-4 flex flex-col gap-2 min-w-[120px] opacity-75">
+                  <div className="w-8 h-8 border border-white flex items-center justify-center font-bold text-sm">
+                    D
+                  </div>
+                  <div>
+                    <div className="font-bold text-sm">Daniel</div>
+                    <div className="text-[10px] uppercase font-bold opacity-60 leading-tight text-slate-400">Hiring<br/>Manager</div>
+                  </div>
+                </div>
+
+                <div className="border border-slate-700 text-white p-4 flex flex-col gap-2 min-w-[120px] opacity-75">
+                  <div className="w-8 h-8 border border-white flex items-center justify-center font-bold text-sm">
+                    S
+                  </div>
+                  <div>
+                    <div className="font-bold text-sm">Sophia</div>
+                    <div className="text-[10px] uppercase font-bold opacity-60 leading-tight text-slate-400">Behavioral<br/>Interviewer</div>
+                  </div>
+                </div>
+
+                <div className="border border-slate-700 text-white p-4 flex flex-col gap-2 min-w-[120px] opacity-75">
+                  <div className="w-8 h-8 border border-white flex items-center justify-center font-bold text-sm">
+                    J
+                  </div>
+                  <div>
+                    <div className="font-bold text-sm">Jordan</div>
+                    <div className="text-[10px] uppercase font-bold opacity-60 leading-tight text-slate-400">Customer /<br/>Role-play</div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      {/* Features Strip */}
+      <section className="bg-slate-50 border-y border-slate-200">
+        <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-slate-200">
+          
+          <div className="p-8 lg:p-12">
+            <div className="flex items-center justify-between mb-8">
+              <span className="text-[#5b36e5] font-bold text-sm">01</span>
+              <Mic className="w-6 h-6 text-slate-400" />
+            </div>
+            <h3 className="text-xl font-bold mb-3">Adaptive voice interviews</h3>
+            <p className="text-slate-500 text-sm leading-relaxed">
+              Questions evolve with every answer—not from a fixed script.
+            </p>
+          </div>
+
+          <div className="p-8 lg:p-12">
+            <div className="flex items-center justify-between mb-8">
+              <span className="text-[#5b36e5] font-bold text-sm">02</span>
+              <Headphones className="w-6 h-6 text-slate-400" />
+            </div>
+            <h3 className="text-xl font-bold mb-3">A coordinated AI panel</h3>
+            <p className="text-slate-500 text-sm leading-relaxed">
+              Distinct perspectives hand off in one continuous conversation.
+            </p>
+          </div>
+
+          <div className="p-8 lg:p-12">
+            <div className="flex items-center justify-between mb-8">
+              <span className="text-[#5b36e5] font-bold text-sm">03</span>
+              <BarChart2 className="w-6 h-6 text-slate-400" />
+            </div>
+            <h3 className="text-xl font-bold mb-3">Evidence-backed feedback</h3>
+            <p className="text-slate-500 text-sm leading-relaxed">
+              Every score links to transcript evidence and practical next steps.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      {/* The Panel Section */}
+      <section className="bg-[#1a1a24] text-white py-20 lg:py-32 border-b-8 border-[#5b36e5]">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+          
+          <div className="flex items-center gap-4 mb-16">
+            <div className="h-px w-8 bg-slate-700"></div>
+            <span className="text-slate-400 text-xs font-bold tracking-[0.2em] uppercase">
+              The Panel
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 mb-24">
+            <h2 className="text-5xl lg:text-7xl font-extrabold leading-[1.05] tracking-tight">
+              Five perspectives.<br />
+              <span className="text-yellow-400">One continuous interview.</span>
+            </h2>
+            <div className="flex items-end pb-4">
+              <p className="text-slate-400 text-lg lg:text-xl leading-relaxed max-w-md">
+                The right interviewer steps forward at the right moment, while shared context keeps every handoff seamless.
               </p>
-
-              {/* Role Selection Cards */}
-              <div className="pt-4">
-                <div className="flex items-center gap-4 mb-8">
-                  <div className="h-px w-12 bg-gradient-to-r from-transparent to-blue-500"></div>
-                  <h2 className="text-3xl sm:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-slate-900 via-blue-800 to-slate-900 tracking-tight">
-                    Are you a?
-                  </h2>
-                  <div className="h-px w-12 bg-gradient-to-l from-transparent to-blue-500"></div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {/* Candidate Option */}
-                  <Link
-                    href="/candidate/auth"
-                    className="group relative bg-white p-6 rounded-2xl border-2 border-slate-200 hover:border-blue-600 shadow-sm hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-200 flex flex-col justify-between"
-                  >
-                    <div className="flex items-start justify-between">
-                      <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-colors duration-200">
-                        <UserCheck className="w-6 h-6" />
-                      </div>
-                      <span className="text-xs font-semibold px-2.5 py-1 bg-blue-50 text-blue-700 rounded-md">Candidate</span>
-                    </div>
-                    <div className="mt-5">
-                      <h3 className="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
-                        Practice AI Interview
-                      </h3>
-                      <p className="text-xs text-slate-500 mt-1">
-                        Get personalized questions, resume & GitHub analysis, and an in-depth 4-dimension portfolio evaluation report.
-                      </p>
-                    </div>
-                    <div className="mt-6 flex items-center text-xl font-bold text-blue-600 gap-2 group-hover:translate-x-2 transition-transform">
-                      <span>Start Candidate Flow</span>
-                      <ArrowRight className="w-6 h-6" />
-                    </div>
-                  </Link>
-
-                  {/* Organization Option */}
-                  <Link
-                    href="/organization/auth"
-                    className="group relative bg-white p-6 rounded-2xl border-2 border-slate-200 hover:border-blue-600 shadow-sm hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-200 flex flex-col justify-between"
-                  >
-                    <div className="flex items-start justify-between">
-                      <div className="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-colors duration-200">
-                        <Building2 className="w-6 h-6" />
-                      </div>
-                      <span className="text-xs font-semibold px-2.5 py-1 bg-indigo-50 text-indigo-700 rounded-md">Organization</span>
-                    </div>
-                    <div className="mt-5">
-                      <h3 className="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
-                        Rank & Assess Talent
-                      </h3>
-                      <p className="text-xs text-slate-500 mt-1">
-                        View ranked candidates, upload custom organization recruitment rubrics, and review full evidence transcripts.
-                      </p>
-                    </div>
-                    <div className="mt-6 flex items-center text-xl font-bold text-blue-600 gap-2 group-hover:translate-x-2 transition-transform">
-                      <span>Access Organization Portal</span>
-                      <ArrowRight className="w-6 h-6" />
-                    </div>
-                  </Link>
-                </div>
-              </div>
-
-              {/* Key Platform Highlights */}
-              <div className="grid grid-cols-3 gap-4 pt-4 border-t border-slate-200/80">
-                <div className="flex items-center gap-2 text-xs font-medium text-slate-600">
-                  <CheckCircle2 className="w-4 h-4 text-blue-600" />
-                  <span>No Agora Agents</span>
-                </div>
-                <div className="flex items-center gap-2 text-xs font-medium text-slate-600">
-                  <CheckCircle2 className="w-4 h-4 text-blue-600" />
-                  <span>Gradium Real-Time Voice</span>
-                </div>
-                <div className="flex items-center gap-2 text-xs font-medium text-slate-600">
-                  <CheckCircle2 className="w-4 h-4 text-blue-600" />
-                  <span>Gemini Multi-Agent</span>
-                </div>
-              </div>
             </div>
-
-            {/* Right Interactive AI Interview Visual Column */}
-            <div className="lg:col-span-5 flex flex-col items-center">
-              <div className="w-full max-w-md bg-white p-4 rounded-3xl border border-slate-200 shadow-xl shadow-slate-200/50 relative">
-                <div className="flex items-center justify-between px-2 pb-3 mb-3 border-b border-slate-100">
-                  <div className="flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 rounded-full bg-red-500"></span>
-                    <span className="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
-                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-                    <span className="text-xs font-semibold text-slate-600 ml-2">EcoSphere Live Interview Session</span>
-                  </div>
-                  <span className="text-[10px] px-2 py-0.5 bg-blue-50 text-blue-700 font-bold rounded">AI Agent</span>
-                </div>
-
-                {/* Looping AI Avatar Visual */}
-                <AiAvatarVideo
-                  isSpeaking={true}
-                  statusText="AI Interviewer assessing technical architecture and problem solving..."
-                  className="w-full h-80"
-                />
-
-                {/* Simulated Conversation Bubble */}
-                <div className="mt-4 p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs">
-                  <div className="flex items-center gap-1.5 font-bold text-blue-700 mb-1">
-                    <Cpu className="w-3.5 h-3.5" />
-                    <span>AI Interviewer</span>
-                  </div>
-                  <p className="text-slate-700 italic">
-                    &ldquo;Can you walk me through how you handled caching and latency optimizations in your distributed project?&rdquo;
-                  </p>
-                </div>
-              </div>
-            </div>
-
           </div>
-        </div>
-      </section>
 
-      {/* Project Explanation Section */}
-      <section className="bg-slate-900 text-white py-24 border-t border-slate-800 relative overflow-hidden">
-        {/* Decorative background blur */}
-        <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-600/20 blur-[120px] rounded-full pointer-events-none"></div>
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          {/* Panelists Horizontally Spaced */}
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-8 lg:gap-12 pt-8 border-t border-slate-800">
             
-            {/* Left Side: Interactive AI Avatar */}
-            <div className="order-2 lg:order-1 flex justify-center lg:justify-start">
-              <div className="w-full max-w-lg bg-slate-800/80 p-6 rounded-3xl border border-slate-700 shadow-2xl backdrop-blur-sm relative group hover:border-blue-500/50 transition-colors duration-500">
-                <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/10 to-purple-600/10 rounded-3xl -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                
-                <div className="flex items-center justify-between px-2 pb-4 mb-4 border-b border-slate-700/50">
-                  <div className="flex items-center gap-2">
-                    <span className="w-3 h-3 rounded-full bg-red-500"></span>
-                    <span className="w-3 h-3 rounded-full bg-amber-500"></span>
-                    <span className="w-3 h-3 rounded-full bg-emerald-500"></span>
-                    <span className="text-sm font-semibold text-slate-300 ml-3">EcoSphere AI Core</span>
-                  </div>
-                  <span className="relative flex h-3 w-3">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
-                  </span>
-                </div>
-
-                {/* CSS Animated AI Avatar */}
-                <div className="relative w-full h-[350px] flex items-center justify-center overflow-hidden rounded-2xl bg-slate-900/50 border border-slate-700/50">
-                  {/* Rotating rings */}
-                  <div className="absolute w-[280px] h-[280px] border border-blue-500/20 rounded-full animate-[spin_8s_linear_infinite]"></div>
-                  <div className="absolute w-[240px] h-[240px] border border-dashed border-purple-500/30 rounded-full animate-[spin_12s_linear_infinite_reverse]"></div>
-                  <div className="absolute w-[200px] h-[200px] border border-blue-400/10 rounded-full animate-[spin_6s_linear_infinite]"></div>
-                  
-                  {/* Glowing core */}
-                  <div className="relative w-32 h-32 flex items-center justify-center">
-                    <div className="absolute inset-0 bg-blue-500 rounded-full blur-2xl opacity-40 animate-pulse"></div>
-                    <div className="absolute inset-2 bg-gradient-to-tr from-blue-600 to-purple-500 rounded-full shadow-[0_0_40px_rgba(59,130,246,0.6)] animate-[bounce_3s_ease-in-out_infinite]"></div>
-                    {/* Inner eye / core */}
-                    <div className="absolute inset-1/4 bg-white/90 rounded-full shadow-inner flex items-center justify-center z-10">
-                      <div className="w-6 h-6 bg-blue-900 rounded-full animate-ping opacity-75"></div>
-                      <div className="absolute w-4 h-4 bg-blue-950 rounded-full"></div>
-                    </div>
-                  </div>
-
-                  {/* Soundwaves */}
-                  <div className="absolute bottom-8 flex items-center gap-1.5 h-12">
-                    {[...Array(9)].map((_, i) => (
-                      <div 
-                        key={i} 
-                        className="w-1.5 bg-blue-400 rounded-full opacity-80"
-                        style={{
-                          height: `${Math.max(20, Math.random() * 100)}%`,
-                          animation: `pulse ${0.5 + Math.random()}s ease-in-out infinite alternate`
-                        }}
-                      ></div>
-                    ))}
-                  </div>
-                </div>
-                
-                <div className="mt-6 p-4 bg-slate-900/50 rounded-xl border border-slate-700/50">
-                   <div className="flex items-center gap-2 text-blue-400 font-semibold mb-2">
-                     <Sparkles className="w-4 h-4" />
-                     <span>Live Insight System</span>
-                   </div>
-                   <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
-                     <div className="h-full bg-blue-500 rounded-full w-3/4 animate-pulse"></div>
-                   </div>
-                   <p className="text-xs text-slate-400 mt-2 text-center">Processing behavioral cues...</p>
-                </div>
+            <div className="flex flex-col gap-4 group cursor-pointer">
+              <div className="w-12 h-12 bg-yellow-400 flex items-center justify-center text-slate-900 font-bold text-lg border border-yellow-400 transition-transform group-hover:-translate-y-1">
+                A
+              </div>
+              <div>
+                <div className="font-bold text-lg mb-1">Alex</div>
+                <div className="text-sm font-semibold text-slate-500">Technical Interviewer</div>
               </div>
             </div>
 
-            {/* Right Side: Text & Features */}
-            <div className="order-1 lg:order-2 flex flex-col space-y-8">
-              <div>
-                <h2 className="text-3xl md:text-5xl font-extrabold mb-6 tracking-tight">
-                  What is <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">EcoSphere</span>?
-                </h2>
-                <p className="text-lg text-slate-400 leading-relaxed">
-                  EcoSphere is a state-of-the-art AI interview platform designed to bridge the gap between talented candidates and top organizations. By utilizing next-generation AI models, we deliver realistic, dynamic mock interviews and provide actionable, granular insights.
-                </p>
+            <div className="flex flex-col gap-4 group cursor-pointer">
+              <div className="w-12 h-12 bg-transparent flex items-center justify-center text-white font-bold text-lg border border-slate-700 transition-transform group-hover:-translate-y-1 group-hover:border-white">
+                M
               </div>
+              <div>
+                <div className="font-bold text-lg mb-1">Maya</div>
+                <div className="text-sm font-semibold text-slate-500">Product Manager</div>
+              </div>
+            </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div className="bg-slate-800/40 p-6 rounded-2xl border border-slate-700/50 hover:bg-slate-800/80 transition-colors">
-                  <div className="w-12 h-12 bg-blue-500/20 text-blue-400 rounded-xl flex items-center justify-center mb-4">
-                    <Mic className="w-6 h-6" />
-                  </div>
-                  <h3 className="text-lg font-bold mb-2">Natural Voice</h3>
-                  <p className="text-slate-400 text-sm leading-relaxed">
-                    Seamless, low-latency conversational interviews with semantic barge-in capabilities.
-                  </p>
-                </div>
-                
-                <div className="bg-slate-800/40 p-6 rounded-2xl border border-slate-700/50 hover:bg-slate-800/80 transition-colors">
-                  <div className="w-12 h-12 bg-emerald-500/20 text-emerald-400 rounded-xl flex items-center justify-center mb-4">
-                    <ShieldCheck className="w-6 h-6" />
-                  </div>
-                  <h3 className="text-lg font-bold mb-2">Multi-Dimension</h3>
-                  <p className="text-slate-400 text-sm leading-relaxed">
-                    Comprehensive feedback across Technical, Behavioural, PM, and Hiring dimensions.
-                  </p>
-                </div>
+            <div className="flex flex-col gap-4 group cursor-pointer">
+              <div className="w-12 h-12 bg-transparent flex items-center justify-center text-white font-bold text-lg border border-slate-700 transition-transform group-hover:-translate-y-1 group-hover:border-white">
+                D
+              </div>
+              <div>
+                <div className="font-bold text-lg mb-1">Daniel</div>
+                <div className="text-sm font-semibold text-slate-500">Hiring Manager</div>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-4 group cursor-pointer">
+              <div className="w-12 h-12 bg-transparent flex items-center justify-center text-white font-bold text-lg border border-slate-700 transition-transform group-hover:-translate-y-1 group-hover:border-white">
+                S
+              </div>
+              <div>
+                <div className="font-bold text-lg mb-1">Sophia</div>
+                <div className="text-sm font-semibold text-slate-500">Behavioral Interviewer</div>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-4 group cursor-pointer">
+              <div className="w-12 h-12 bg-transparent flex items-center justify-center text-white font-bold text-lg border border-slate-700 transition-transform group-hover:-translate-y-1 group-hover:border-white">
+                J
+              </div>
+              <div>
+                <div className="font-bold text-lg mb-1">Jordan</div>
+                <div className="text-sm font-semibold text-slate-500">Customer / Role-play</div>
               </div>
             </div>
 
           </div>
         </div>
       </section>
+
     </div>
   );
 }

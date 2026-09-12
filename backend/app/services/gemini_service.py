@@ -222,9 +222,9 @@ Return ONLY a valid JSON object with schema:
         if question_order == 1:
             stage_instructions = "This is the very first question. You MUST start with a warm welcome to the candidate and a brief introduction. Then, ask a very general introductory question like 'Tell me about yourself' or asking about their background. DO NOT ask technical questions yet."
         elif question_order == 2:
-            stage_instructions = "This is the second question. Acknowledge their previous answer nicely, then smoothly transition into asking about a specific project from their resume or GitHub."
+            stage_instructions = "This is the second question. Provide meaningful, conversational feedback on their previous answer, then smoothly transition into asking about a specific project from their resume or GitHub."
         else:
-            stage_instructions = "Acknowledge their previous answer naturally and proceed to the next technical or behavioral question based on the Target Evaluation Dimension."
+            stage_instructions = "Provide meaningful, conversational feedback on their previous answer. React to what they said, then smoothly pivot to the next technical or behavioral question based on the Target Evaluation Dimension."
 
         prompt = f"""
 You are an expert AI Interviewer for {company}, interviewing a candidate for the {role} position ({domain} domain).
@@ -238,10 +238,14 @@ Previous Questions & Answers:
 
 {stage_instructions}
 
-Generate the next highly relevant, professional, realistic interview question.
+When generating the response:
+1. FIRST, provide a natural, conversational response/feedback to the candidate's last answer (if applicable).
+2. THEN, ask the next interview question seamlessly.
+
 Return ONLY a valid JSON object:
 {{
-  "question": "The spoken interview question text.",
+  "acknowledgement": "Natural conversational feedback to the candidate's previous answer (leave empty if first question)",
+  "question": "The spoken next interview question text.",
   "category": "{current_stage}",
   "difficulty": "Medium",
   "rationale": "Why this question tests the candidate for {company} {role}",
@@ -252,7 +256,10 @@ Return ONLY a valid JSON object:
         if response_text:
             try:
                 cleaned = clean_json_string(response_text)
-                return json.loads(cleaned)
+                data = json.loads(cleaned)
+                if data.get("acknowledgement"):
+                    data["question"] = f"{data['acknowledgement']} {data['question']}"
+                return data
             except Exception as e:
                 logger.error(f"Failed to parse Gemini question response: {e}")
 

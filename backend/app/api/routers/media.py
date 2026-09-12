@@ -1,4 +1,5 @@
 import os
+from typing import Optional
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form, status
 from fastapi.responses import FileResponse
 from sqlalchemy.ext.asyncio import AsyncSession
