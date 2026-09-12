@@ -92,6 +92,8 @@ export default function ActualInterviewRoomPage() {
       );
       anamClientRef.current = client;
 
+      await client.connect();
+
       if (anamVideoRef.current) {
         await client.streamToVideoElement('anam-video');
       }
