@@ -122,10 +122,13 @@ export default function ActualInterviewRoomPage() {
       setRole(r);
       setDomain(d);
 
-      initAnamClient();
-      initCandidateVideo();
-      initInterviewSession(storedId);
-      initBrowserSpeechRecognition();
+      const startRoom = async () => {
+        initCandidateVideo();
+        initBrowserSpeechRecognition();
+        await initAnamClient();
+        await initInterviewSession(storedId);
+      };
+      startRoom();
     }
 
     return () => {
