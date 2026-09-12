@@ -148,7 +148,7 @@ export default function ActualInterviewRoomPage() {
   // Auto-scroll transcript to bottom
   useEffect(() => {
     transcriptEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [transcripts]);
+  }, [transcripts, candidateAnswerText]);
 
   // Auto-submit candidate answer after 4 seconds of silence
   useEffect(() => {
@@ -280,12 +280,13 @@ export default function ActualInterviewRoomPage() {
 
         recognition.onresult = (event: any) => {
           let currentTranscript = '';
-          for (let i = event.resultIndex; i < event.results.length; i++) {
+          for (let i = 0; i < event.results.length; i++) {
             currentTranscript += event.results[i][0].transcript;
           }
 
           // Semantic Interruption / Barge-in trigger: if candidate speaks while AI is speaking
-          if (isAiSpeaking && currentTranscript.trim().length > 2) {
+          const latestWord = event.results[event.resultIndex][0].transcript;
+          if (isAiSpeaking && latestWord.trim().length > 2) {
             handleBargeInInterruption();
           }
 
