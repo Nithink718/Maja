@@ -284,6 +284,13 @@ export default function ActualInterviewRoomPage() {
     if (audioPlayerRef.current) {
       audioPlayerRef.current.pause();
     }
+    if (anamClientRef.current) {
+      try {
+        anamClientRef.current.interruptPersona();
+      } catch (e) {
+        console.error('Anam interrupt error:', e);
+      }
+    }
     setIsAiSpeaking(false);
     setIsListening(true);
   };
@@ -337,7 +344,38 @@ export default function ActualInterviewRoomPage() {
       });
 
       if (questionNumber >= totalQuestions) {
-        await handleCompleteInterview(interviewId);
+        // Speak closing statement
+        setIsAiSpeaking(true);
+        const closingText = "Thank you for your responses. This concludes our interview today. We will now process your results.";
+        const nowTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        setTranscripts((prev) => [
+          ...prev,
+          { speaker: 'ai', message: closingText, timestamp: nowTime },
+        ]);
+
+        if (anamClientRef.current) {
+          try {
+            const stream = anamClientRef.current.createTalkMessageStream();
+            const uuid = (typeof crypto !== 'undefined' && crypto.randomUUID) ? crypto.randomUUID() : undefined;
+            if (uuid) {
+              await stream.streamMessageChunk(closingText, true, uuid);
+            } else {
+              await stream.streamMessageChunk(closingText, true);
+            }
+          } catch (e) {
+            console.error('Anam TTS error on closing:', e);
+          }
+        } else if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+          window.speechSynthesis.cancel();
+          const utterance = new SpeechSynthesisUtterance(closingText);
+          window.speechSynthesis.speak(utterance);
+        }
+
+        const estimatedMs = Math.max(3000, (closingText.length / 15) * 1000 + 1000);
+        setTimeout(async () => {
+          setIsAiSpeaking(false);
+          await handleCompleteInterview(interviewId);
+        }, estimatedMs);
       } else {
         await fetchNextQuestion(interviewId);
       }
@@ -502,6 +540,17 @@ export default function ActualInterviewRoomPage() {
                 <p className="leading-relaxed">{t.message}</p>
               </div>
             ))}
+
+            {/* Live Candidate Context Bubble */}
+            {isListening && candidateAnswerText && (
+              <div className="p-4 rounded-2xl text-xs space-y-1.5 bg-slate-100 border border-slate-200 text-slate-900 ml-4 opacity-70 animate-pulse">
+                <div className="flex items-center justify-between font-bold text-[10px] tracking-wider uppercase">
+                  <span className="text-slate-700">Candidate (Speaking...)</span>
+                </div>
+                <p className="leading-relaxed">{candidateAnswerText}</p>
+              </div>
+            )}
+
             <div ref={transcriptEndRef} />
           </div>
 
