@@ -153,13 +153,13 @@ export default function ActualInterviewRoomPage() {
     transcriptEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [transcripts, candidateAnswerText]);
 
-  // Auto-submit candidate answer after 4 seconds of silence
+  // Auto-submit candidate answer after 2.5 seconds of silence
   useEffect(() => {
     let timeout: NodeJS.Timeout;
-    if (isListening && !isAiSpeaking && candidateAnswerText.trim().length > 10) {
+    if (isListening && !isAiSpeaking && candidateAnswerText.trim().length > 2) {
       timeout = setTimeout(() => {
         handleSubmitAnswer();
-      }, 4000);
+      }, 2500);
     }
     return () => clearTimeout(timeout);
   }, [candidateAnswerText, isListening, isAiSpeaking]);
